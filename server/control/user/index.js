@@ -43,7 +43,6 @@ module.exports.getUsers = function(req, res, next){
     var resModel1 = new resModel();
     User.getAllUsers(function(err, users){
         if(err){
-            console.log(err);
             resModel1.code = "-1";
             resModel1.msg = err;
             resModel1.info = err;
@@ -100,9 +99,14 @@ module.exports.login = function(req, res, next){
     User.getUserByName(req.body.userName, function(err, user){
         if(user != null){
             if(user.password == util.md5(req.body.password)){
+                let token = util.getUserAK(req.session?req.session.id:'', user.name, user.password);
+
                 resModel1.code = "0";
                 resModel1.msg = "登录成功";
-                resModel1.info = "";
+                resModel1.info = {
+                    name: user.name,
+                    ak: token
+                };
             }
             else{
                 resModel1.code = "1";
@@ -117,4 +121,9 @@ module.exports.login = function(req, res, next){
         }
         res.json(resModel1);
     });
+};
+
+module.exports.logout = function(req, res, next){
+    var resModel1 = new resModel();
+
 };

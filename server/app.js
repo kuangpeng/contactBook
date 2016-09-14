@@ -4,6 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session')
+var MongoStore = require('connect-mongo')(session);
+
+var myConfig = require("./config");
+var authMiddleware = require('./middleware/auth');
 
 var app = express();
 
@@ -17,6 +22,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+/*app.use(session({
+    secret: '12345sss',
+    name: 'testapp',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+    cookie: {maxAge: 365*24*60*60*1000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({
+        url: "mongodb://" + myConfig.DB.ip + ":" + myConfig.DB.port + "/" + myConfig.DB.dbName,
+        ttl: 365*24*60*60
+    })
+}));*/
+
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../client/dist'), ""));
@@ -29,6 +47,10 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
+
+/* middleware */
+app.use(authMiddleware);
+
 var routers = require('./routes/routers');
 routers(app);
 

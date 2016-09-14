@@ -21,4 +21,8 @@ module.exports = function(app){
     app.use("/login", function(req, res, next) {
         userControl.login(req, res, next);
     });
+
+    app.use("/logout", function(req, res, next) {
+        userControl.logout(req, res, next);
+    });
 };

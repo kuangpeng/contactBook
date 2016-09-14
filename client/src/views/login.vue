@@ -33,6 +33,7 @@
 
 <script>
 	import config from "../config.js"
+	import {setUser, setAk} from "../vuex/actions"
 	export default{
 		name: "Login",
 		methods:{
@@ -46,6 +47,9 @@
 						};
 						_this.$http.post(config.domain + "/login", param_login, {emulateJSON: true}).then(function(response){
 							if(response.data.code == "0"){
+								_this.setUser(response.data.info.name);
+								_this.setAk(response.data.info.ak);
+
 								alert("登录成功");
 							}
 							else{
@@ -57,8 +61,13 @@
 					}
 				})
 			}
+		},
+		vuex:{
+			actions:{
+				setUser,
+				setAk
+			}
 		}
-
 	}
 </script>
 

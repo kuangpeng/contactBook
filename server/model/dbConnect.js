@@ -1,6 +1,6 @@
 var config = require("../config/");
 
-var mongdbConnectString = "mongodb://" + config.DB.ip + "/" + config.DB.dbName;
+var mongdbConnectString = "mongodb://" + config.DB.ip + ":" + config.DB.port + "/" + config.DB.dbName;
 
 module.exports = {
     connectDB: function(mongoose){

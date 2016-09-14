@@ -43,6 +43,13 @@
 	import config from "../config.js"
 	export default{
 		name: "Register",
+		data(){
+			return{
+
+			}
+		},
+		created(){
+		},
 		methods:{
 			checkPass(){
 				let pass = $("input[name='pass']").val();

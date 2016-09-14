@@ -2,9 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import VueValidator from "vue-validator"
+import Vuex from "vuex"
 import "./assets/css/common.css"
 import "./assets/css/public.css"
 import $ from 'jquery'
+
+import store from './vuex/store'
 
 import Login from "./views/login.vue"
 import Register from "./views/Register.vue"
@@ -17,6 +20,7 @@ import Talk from "./components/talk/Talk.vue"
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(VueValidator)
+Vue.use(Vuex)
 
 const router = new VueRouter()
 
@@ -61,5 +65,7 @@ $("body").on("touchmove", function(e){
     e.preventDefault();
 });
 
-let app = Vue.extend({});
+let app = Vue.extend({
+    store
+});
 router.start(app, '#app')
