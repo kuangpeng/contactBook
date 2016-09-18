@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import VueValidator from "vue-validator"
 import Vuex from "vuex"
+import "vux/dist/styles/reset.css"
+import "./assets/icon/ux/iconfont.css"
 import "./assets/css/common.css"
 import "./assets/css/public.css"
 import $ from 'jquery'
@@ -14,8 +16,11 @@ import Register from "./views/Register.vue"
 import Index from './views/Index.vue'
 import Home from './views/Home.vue'
 import User from "./views/User.vue"
+import Search from "./views/Search.vue"
 import Talk from "./components/talk/Talk.vue"
 
+const FastClick = require('fastclick');
+FastClick.attach(document.body);
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
@@ -48,6 +53,10 @@ router.map({
     '/user/:userId/talk':{
         name: "talk",
         component: Talk
+    },
+    '/search':{
+        name: 'search',
+        component: Search
     }
 })
 
@@ -61,9 +70,6 @@ router.afterEach(function(transition){
 
 })
 
-$("body").on("touchmove", function(e){
-    e.preventDefault();
-});
 
 let app = Vue.extend({
     store

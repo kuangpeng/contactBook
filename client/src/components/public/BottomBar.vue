@@ -1,6 +1,16 @@
 <template>
   <div class="bottom-bar">
-    <ul>
+	  <tabbar>
+		  <tabbar-item link="javascript:;" selected>
+			  <i slot="icon" class="iconfont icon-friendfill"></i>
+			  <span slot="label">列表</span>
+		  </tabbar-item>
+		  <tabbar-item link="javascript:;">
+			  <i slot="icon" class="iconfont icon-profilefill"></i>
+			  <span slot="label">我</span>
+		  </tabbar-item>
+	  </tabbar>
+    <!--<ul>
       <li class="on">
         <a href="#">
           <span class="icon"></span>
@@ -13,14 +23,19 @@
           我的
         </a>
       </li>
-    </ul>
+    </ul>-->
   </div>
 </template>
 
 <script>
-	export default{
-    name: 'BottomBar'
-  }
+import {Tabbar, TabbarItem} from 'vux/src/components/tabbar'
+export default{
+	name: 'BottomBar',
+	components: {
+		Tabbar,
+		TabbarItem
+	}
+}
 </script>
 
 <style>
@@ -29,13 +44,18 @@
     z-index: 100;
     box-sizing: border-box;
     width: 100%;
-    height: 30px;
     left: 0;
     bottom: 0;
     background: #c1c1c1;
     border-bottom: 1px solid #ccc;
   }
-  .bottom-bar ul li{
+  .weui_tabbar_icon{
+	  color: #888;
+  }
+  .weui_bar_item_on .weui_tabbar_icon{
+	  color: #09BB07;
+  }
+  /*.bottom-bar ul li{
     width: 50%;
     float: left;
   }
@@ -46,5 +66,5 @@
   }
   .bottom-bar ul li.on{
     background: #f2dede;
-  }
+  }*/
 </style>
