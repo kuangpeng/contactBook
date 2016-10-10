@@ -2,7 +2,7 @@ var userControl = require("../../control/user");
 
 module.exports = function(app){
 
-    app.use("/user_:name", function(req, res, next){
+    app.use("/user/:name", function(req, res, next){
         userControl.getUserByName(req, res, next);
     });
 
@@ -24,5 +24,9 @@ module.exports = function(app){
 
     app.use("/logout", function(req, res, next) {
         userControl.logout(req, res, next);
+    });
+
+    app.use("/search/:key", function(req, res, next) {
+        userControl.search(req, res, next);
     });
 };

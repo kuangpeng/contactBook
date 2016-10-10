@@ -1,11 +1,6 @@
 <template>
- <!-- <div class="top-bar">
-    <a href="javascript:window.history.go(-1);" class="btn-back">&lt;</a>
-    <h3 class="top-title">{{title}}</h3>
-	  <a href="javascript:;"></a>
-  </div>-->
 <div class="top-bar">
-	<x-header :title="title" :left-options="{showBack:true,backText:''}" :right-options="{showMore: true}" @on-click-more="showMenus = true"></x-header>
+	<x-header :title="title" :left-options="leftOptions" :right-options="rightOptions" :transition="headerTransition" @on-click-more="showMenus = true"></x-header>
 
 	<action-sheet :menus="menus" :show.sync="showMenus" @on-click-menu="actionSheetJump" show-cancel></action-sheet>
 </div>
@@ -22,7 +17,25 @@
 			ActionSheet
 		},
 	    props:{
-	      title: String
+	        title: String,
+		    leftOptions: {
+			    type: Object,
+			    default () {
+				    return {
+					    showBack: true,
+					    backText: '<',
+					    preventGoBack: false
+				    }
+			    }
+		    },
+		    rightOptions: {
+			    type: Object,
+			    default () {
+				    return {
+					    showMore: false
+				    }
+			    }
+		    }
 	    },
 		data(){
 			return{
@@ -31,6 +44,16 @@
 					menu2: "default"
 				},
 				showMenus: false
+			}
+		},
+		computed: {
+			leftOptions () {
+				return {
+					showBack: this.$route.path !== '/'
+				}
+			},
+			headerTransition () {
+				return this.direction === 'forward' ? 'vux-header-fade-in-right' : 'vux-header-fade-in-left'
 			}
 		},
 		methods: {
@@ -45,24 +68,11 @@
 
 <style>
   .top-bar{
-    position: absolute;
-    z-index: 600;
+	  position: absolute;
+    z-index: 200;
     box-sizing: border-box;
     width: 100%;
-    left: 0;
-    top: 0;
     background: #fff;
     border-bottom: 1px solid #ccc;
   }
-  /* .top-bar a.btn-back{
-	 position: absolute;
-	 top: 3px;
-	 left: 5px;
-	 padding: 1px 5px;
-	 border:1px solid #ccc;
-	 border-radius: 100%;
-   }
-   .top-bar .top-title{
-	 text-align: center;
-   }*/
 </style>

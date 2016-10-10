@@ -2,22 +2,35 @@
 
 <div class="loadingPage">
 	<div class="action">
-        <a v-link="{name:'login'}">登录</a>
-		<a v-link="{name:'register'}">注册</a>
+		<x-button type="primary" :text="btn_login_text" @click="toLogin"></x-button>
+		<x-button type="warn" :text="btn_reg_text" @click="toReg"></x-button>
 	</div>
 </div>
 
 </template>
 
 <script>
+	import "vux/src/styles/center.less"
+	import XButton from 'vux/src/components/x-button'
 export default {
 	name: "Home",
-  ready(){
-    /*var vt = this;
-    setTimeout(function(){
-      (vt.$route).router.go({name: 'index', params:{page:1}});
-    }, 1000)*/
-  }
+	components:{
+		XButton
+	},
+	data(){
+		return{
+			btn_login_text: '登录',
+			btn_reg_text: '注册'
+		}
+	},
+	methods:{
+		toLogin(){
+			this.$router.go({name:'login'});
+		},
+		toReg(){
+			this.$router.go({name:'register'});
+		}
+	}
 }
 </script>
 <style>
@@ -26,26 +39,15 @@ export default {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: url("http://7viibj.com2.z0.glb.qiniucdn.com/16770_17_1473609019109_w1540_h1050_s1494592.jpg?imageView2/1/w/300/h/400/q/90") no-repeat center;
-	background-size: 100%;
+	background: url("../assets/images/home_bg.jpg") no-repeat center;
+
+	background-size: cover;
 }
 .loadingPage .action{
-	position: absolute;
-	top: 20%;
-	left: 0;
-	width: 100%;
-	text-align: center;
+	width: 50%;
+	position: fixed;
+	left: 25%;
+	bottom: 30px;
 }
-.loadingPage .action a{
-	display: block;
-	width: 100px;
-	padding: 10px 0;
-	text-align: center;
-	color: #fc8c84;
-	background: #fff;
-	border: 1px solid #b94a48;
-	border-radius: 5px;
-	margin: 0 auto;
-	margin-bottom: 10px;
-}
+
 </style>

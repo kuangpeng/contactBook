@@ -127,3 +127,22 @@ module.exports.logout = function(req, res, next){
     var resModel1 = new resModel();
 
 };
+
+module.exports.search = function(req, res, next){
+    var resModel1 = new resModel();
+    User.search(req.params.key, function(err, users){
+        if(err){
+            resModel1.code = "-1";
+            resModel1.msg = err;
+            resModel1.info = err;
+            res.json(resModel1);
+        }
+        else{
+            resModel1.code = "0";
+            resModel1.info["list"] = users;
+            resModel1.info["page"] = 0;
+            res.json(resModel1);
+        }
+    });
+};
+

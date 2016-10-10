@@ -6,7 +6,9 @@ Vue.use(Vuex)
 // 创建一个对象来保存应用启动时的初始状态
 const state = {
     userName: '',
-    ak: ''
+    ak: '',
+    isLoading: false,
+    direction: 'forward'
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -18,6 +20,12 @@ const mutations = {
     },
     SETAK: (state, ak)=>{
         state.ak = ak;
+    },
+    UPDATE_LOADING (state, status) {
+        state.isLoading = status
+    },
+    UPDATE_DIRECTION (state, direction) {
+        state.direction = direction
     }
 }
 

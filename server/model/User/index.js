@@ -59,3 +59,12 @@ module.exports.register = function(params, callback){
     });
 };
 
+module.exports.search = function(_key, callback){
+    if(!_key){
+        return callback();
+    }
+    User.find({"name": new RegExp(_key, "i")}, function(err, data_user){
+        callback(err, data_user);
+    });
+};
+

@@ -52,4 +52,7 @@
     line-height: 20px;
     font-size: 12px;
   }
+  li.item:last-child{
+	  border-bottom: none;
+  }
 </style>
